@@ -2,6 +2,8 @@
 #include <stdlib.h>
 
 
+int add(int num , int index , link *p);
+int delete(int index , link*p);
 
 typedef struct link{
     struct link*last;
@@ -61,3 +63,38 @@ int main(void){
     free(in);
 
 }
+
+
+int add(int num , int index , link *p){
+    int counter = 0;
+    while (p->next != NULL){
+        if (counter == index){
+            link *new = malloc(sizeof(link));
+            new->num = num;
+            new->next = p->next;
+            new->last = p;
+            return 0;
+        }
+        counter ++;
+        p = p->next;
+    }
+}
+
+int delete(int index , link*p){
+    int counter = 0;
+    link *last = NULL;
+    link *next = NULL;
+    while (p->next != NULL){
+        if (counter == index){
+            last = p->last;
+            next = p->next;
+            next->last = last;
+            last->next = next;
+            free(p);
+            return 0;
+        }
+        counter ++;
+        p = p->next;
+    }
+}
+
